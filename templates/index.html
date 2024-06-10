@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 
-{% block content %}
-<div class="flex-container_body">
-         <div class="flex_body-child">
+ {% block no_bootstrap_content %}
+<h2 class="text-login">Список статей</h2>
+<div>
                 {% for el in posts %}
-                    <div>
-                        <a href="{{ url_for('view_post', post_id=el.id) }}"> {{ el.description }} </a>
+                    <div class="flex_body-child">
+                       <li> <a href="{{ url_for('view_post', post_id=el.id) }}"> {{ el.description }} </a></li>
+
                     </div>
                 {% endfor %}
-         </div>
     </div>
 {% endblock %}

@@ -199,12 +199,11 @@ class RegistrationForm(FlaskForm):
     username = StringField('Логин', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     password2 = PasswordField('Повтор пароля', validators=[DataRequired()])
-    submit = SubmitField('Войти')
+    submit = SubmitField('Зарегистрироваться')
 
-    def validate_password2(self):
-        if self.password.data != self.password2.data:
+    def validate_password2(self, field):
+        if self.password.data != field.data:
             raise ValidationError('Пароли не совпадают')
-
 
 class PostForm(FlaskForm):
     """Класс для полей для добавления статьи"""
@@ -267,7 +266,7 @@ def index():
     # return render_template('index.html')
 
 
-@app.route('/<int:post_id>', methods=['GET', 'POST'])
+@app.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def view_post(post_id):
     comment_form = CommentForm()
     rating_form = RatingForm()
@@ -284,16 +283,16 @@ def view_post(post_id):
         db.session.commit()
         flash("Ваша оценка добавлена!", "success")
 
-    post, comment, avg_rating = Function.get_posts_comment_rating(post_id)
-    return render_template('post.html', post=post, comment=comment, avg_rating=avg_rating,
-                           comment_form=comment_form, rating_form=rating_form)
+    content= Function.get_posts_comment_rating(post_id)
+    return render_template('post.html', **content)
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, password=form.password.data)
+        user = User(username=form.username.data)
+        user.set_password(form.password.data)  # Хешируем пароль
         db.session.add(user)
         db.session.commit()
         flash("Вы успешно зарегистрировались!", "success")

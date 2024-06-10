@@ -1,9 +1,4 @@
 
-body {
-    background-image: url('/static/media/examples/wood.jpg');
-
-}
-
 h1 {
   color: black;
   font-size: 40px
@@ -331,7 +326,7 @@ margin-left: 20px;
 
 .flex-container_body {
             display: flex;
-            flex: 10
+            flex:
             background: linear-gradient(to bottom right, #ffffff, #cccccc);
 
             /* Тень для добавления объемности */
@@ -349,8 +344,9 @@ margin-left: 20px;
         }
 
         .flex_body-child {
-            width: calc((100% - 3 * 10px) / 4);
-            flex-direction: column;
+            width: 100%;
+            padding: 10px;
+            flex-direction: raw;
             display: flex; /* Добавляем display: flex для выравнивания внутренних элементов */
             align-items: center; /* Выравнивание элементов по центру по вертикали */
         }
@@ -590,7 +586,7 @@ font-size: 30px;
 
 .text-login {
   text-align: center;
-  width: 1000px;
+  width: 100%;
   border: 1px solid #333;
   padding: 8px 12px;
   box-shadow: 10px 10px 20px #aaaaaa;
@@ -625,3 +621,5 @@ font-size: 30px;
             justify-content: left;
             font-size: 18px
         }
+.center
+         align-items: center;
